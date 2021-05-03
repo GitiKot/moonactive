@@ -1,6 +1,6 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
+let express = require('express');
+let app = express();
+let bodyParser = require('body-parser');
 app.use(bodyParser.json())
 
 // Configuring the database
@@ -59,9 +59,9 @@ mongoose.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: true
 
 require('./app/routes/promotion.router.js')(app);
 // Create a Server
-var server = app.listen(8080, function() {
-    var host = server.address().address
-    var port = server.address().port
+let server = app.listen(8080, function() {
+    let host = server.address().address
+    let port = server.address().port
 
     console.log("App listening at http://%s:%s", host, port)
 })

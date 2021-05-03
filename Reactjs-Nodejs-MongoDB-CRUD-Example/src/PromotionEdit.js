@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
-// import {fieldData} from './fieldData';
 class PromotionEdit extends Component {
 
     emptyPromotion = {
@@ -17,16 +16,17 @@ class PromotionEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fields:[],  item: this.emptyPromotion
+            fields: [],
+            item: this.emptyPromotion
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-   
+
     async componentDidMount() {
         fetch('../api/fields')
-        .then(response => response.json())
-        .then(data => {this.setState({ fields: data })});  
+            .then(response => response.json())
+            .then(data => { this.setState({ fields: data }) });
 
         // fetch('../api/promotions')
         // .then(response => response.json())
@@ -63,50 +63,61 @@ class PromotionEdit extends Component {
     }
 
     render() {
-        const { fields,item } = this.state;
-        
+        const { fields, item } = this.state;
+
         const title = < h2 > { item.id ? 'Edit Promotion' : 'Add Promotion' } </h2>;
-    
-        const promotionList =  <div> {fields.map(f=>f.fieldName.map(name=> {
-                 return       (  
-                 <FormGroup >
-                    <Label
-                for = {name.nameField}>  {name.nameField } </Label> 
-                <Input type = {name.type}
-                name ={name.nameField}
-                id = {name.nameField}
-                value = { item[name.nameField] || '' }
-                onChange = { this.handleChange }
-                autoComplete = {name.nameField} />  
-                    </FormGroup>
-                
-          )}))} </div>
-                       
-        
-       
-        console.log("promotionList",promotionList);
+
+        const promotionList = < div > {
+            fields.map(f => f.fieldName.map(name => {
+                return (
+                    <FormGroup >
+
+                    <
+                    Label
+                    for = { name.nameField } > { name.nameField } </Label>  
+                   < Input type = { name.type }
+                    name = { name.nameField }
+                    id = { name.nameField }
+                    value = { item[name.nameField] || '' }
+                    onChange = { this.handleChange }
+                    autoComplete = { name.nameField }
+                    />   
+                   </ FormGroup >
+
+                )
+            }))
+        } </div>
+
+
+
+        console.log("promotionList", promotionList);
         return <div >
+
             
             <AppNavbar />
-            
-            <Container > { title } 
-            <Form onSubmit = { this.handleSubmit } >
-            
-           {promotionList}
-            
-            <FormGroup >
 
-            
-            <Button color = "primary"
-        type = "submit" > Save </Button>{' '}  
-        <Button color = "secondary"
+          
+              <Container > { title } 
+            <Form onSubmit = { this.handleSubmit } >
+
+            { promotionList }
+
+       
+        < FormGroup >
+
+
+          
+             < Button color = "primary"
+     type = "submit" > Save </Button>{' '}   
+         < Button color = "secondary"
         tag = { Link }
-        to = "/promotions" > Cancel </Button>  
+        to = "/promotions" > Cancel </Button>   
         </FormGroup > 
             </Form>  
-        </Container > 
+         </Container >
 
 
+            
             </div>
     }
 }

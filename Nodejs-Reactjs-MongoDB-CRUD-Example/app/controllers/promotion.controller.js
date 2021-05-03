@@ -28,7 +28,9 @@ exports.createPromotion = (req, res) => {
 
 // FETCH all Promotions
 exports.promotions = (req, res) => {
-    Promotion.find().select('-__v').then(promotionInfos => {
+    console.log("req", req.params.skip, req.params.skip * 20);
+    Promotion.find().skip(req.params.skip * 20).limit(20).then(promotionInfos => {
+
         res.status(200).json(promotionInfos);
     }).catch(error => {
         // log on console
@@ -39,6 +41,17 @@ exports.promotions = (req, res) => {
             error: error
         });
     });
+    // Promotion.find().select('-__v').then(promotionInfos => {
+    //     res.status(200).json(promotionInfos);
+    // }).catch(error => {
+    //     // log on console
+    //     console.log(error);
+
+    //     res.status(500).json({
+    //         message: "Error!",
+    //         error: error
+    //     });
+    // });
 };
 
 // get a Promotion by Id

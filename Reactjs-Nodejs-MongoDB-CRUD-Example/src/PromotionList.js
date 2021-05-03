@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-
+import './PromotionList.css'
   
 class PromotionList extends Component {
     
     constructor(props) {
         super(props);
-        this.state = { fields: [], promotions: [], isLoading: true , data: [],pageNo:1};
+        this.state = { fields: [], promotions: [], isLoading: true ,lastScrollTop:0, pageNo:1};
         this.remove = this.remove.bind(this);
 
         
@@ -18,17 +17,19 @@ class PromotionList extends Component {
     componentDidMount() {
 
        
-        this.setState({ isLoading: true , data: [],pageNo:1});
+        this.setState({ isLoading: true });
 
-        fetch('api/promotions')
-            .then(response => response.json())
-            .then(data => this.setState({ promotions: data, isLoading: false , data: [],pageNo:1}));
+       fetch(`api/promotions/${0}`).then(response => {
+                    response.json()
+                    .then(data => this.setState({ promotions: data,isLoading: false }));       
+			})
+			.catch(error => {
+				alert('Axios GET request failed');
+			})
 
             fetch('api/fields')
             .then(response => response.json())
-            .then(data => {this.setState({ fields: data, isLoading: false , data: [],pageNo:1})});
-
-           
+            .then(data => {this.setState({ fields: data, isLoading: false ,pageNo:1})});      
     }
 
     async remove(id) {
@@ -44,43 +45,49 @@ class PromotionList extends Component {
             this.setState({ promotions: updatedPromotions });
         });
     }
-
+   
      getData(){
-       
-       
-		axios.get(`https://jsonplaceholder.typicode.com/albums/${this.state.pageNo}/photos`)
-			.then(response => {
-				if(this.state.pageNo > 1){
-                    let arr;
-					// let arr = [...data, ...response.data];
-					
-					// setData(arr);
-				}
-				else{
-                    
-					// setData(response.data);
-				}
-				
-			})
-			.catch(error => {
-				alert('Axios GET request failed');
-			})
+     
+       console.log(`getdata()api/promotions/${this.state.pageNo}`);
+       fetch(`api/promotions/${this.state.pageNo}`).then(response => {
+        response.json()
+        .then(data => {
+            // if(this.state.pageNo<2)
+            this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
+            // else{
+            //     const PrevData=this.state.promotions.splice(0,20,data)
+            //     console.log("1111",this.state.promotions );
+            //     console.log(data);
+            //     console.log("aaa",PrevData);
+            //     this.setState({ promotions: this.state.promotions.splice(0,20,PrevData), isLoading: false})
+            //     console.log("2222",this.state.promotions);
+            //     this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
+            //     console.log("3333",this.state.promotions);
+            // }
+        
+        });
+
+       })
+   
 	}
-	
+
+	firstEvent = (e) => {
+    
+		console.log("first",e.target.scrollHeight,e.target.scrollTop);
+		let bottom = e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight < 50;
+		if(bottom){
+			let pg = this.state.pageNo + 1;
+            this.setState({pageNo:pg})
+            console.log("this.state.pageNo",this.state.pageNo);
+
+			this.getData();
+		}
+	}
 
     render() {
         const { fields, promotions, isLoading } = this.state;
       
-const firstEvent = (e) => {
-		console.log("eee",e);
-		var bottom = e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight < 30;
-		if(bottom){
-			let pg = this.state.pageNo + 1;
-            this.setState({pageNo:pg})
-			// setPageNo(pg);
-			this.getData();
-		}
-	}
+ 
 
         if (isLoading) {
             return <p > Loading... </p>;
@@ -130,7 +137,8 @@ const firstEvent = (e) => {
         });
 
         return ( 
-            <div  onScroll={firstEvent} >
+            <div  className="div" 
+            onScroll={this.firstEvent}>
             < AppNavbar />
             <Container fluid > 
             <div className = "float-right" >
