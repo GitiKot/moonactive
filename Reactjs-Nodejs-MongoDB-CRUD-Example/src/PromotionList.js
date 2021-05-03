@@ -46,55 +46,64 @@ class PromotionList extends Component {
    
      getData(){
      const pageNoumber=this.state.pageNo;
+
        console.log(`getdata()api/promotions/${this.state.pageNo}`);
        fetch(`api/promotions/${this.state.pageNo}`).then(response => {
         response.json()
         .then(data => { 
             
-            console.log(" if(this.state.pageNo",this.state.pageNo);
+          console.log(" if(this.state.pageNo",this.state.pageNo);
            console.log("pageNoumber",pageNoumber);
-            // debugger
-            // if(this.state.pageNo<2)//if not 
-            if(pageNoumber<2)//if not 
+            // 
+            console.log("this.state.pageNo>pageNoumber",this.state.pageNo>pageNoumber);
+           if(this.state.pageNo>pageNoumber){
+            if(pageNoumber<2)//if not first
             {
                 this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
-               
             }
             else{
    
-   
-                this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
+            this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
+            this.state.promotions.splice(0,20)
               
-                // if()//if up
-               console.log("this.state.promotions.splice(0,20)",this.state.promotions.splice(0,20));
-               console.log("this.state.promotions",this.state.promotions);
-                // else{
-                
-                // }
             //     const PrevData=this.state.promotions.splice(0,20,data)  
             //     this.setState({ promotions: this.state.promotions.splice(0,20,PrevData), isLoading: false})
             // this.setState({ promotions: this.state.promotions.splice(this.state.pageNo-2,20), isLoading: false})
                 // this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
                 // this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
-              
-            }
-        
+
+            } 
+           }
+           else{
+
+           }
+          
         });
-
        })
-   
 	}
-
+   
 	firstEvent = (e) => {
-    
-		console.log("first",e.target.scrollHeight,e.target.scrollTop);
-		let bottom = e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight < 50;
-		if(bottom){
-			let pg = this.state.pageNo + 1;
-            this.setState({pageNo:pg})
-            console.log("this.state.pageNo",this.state.pageNo);
+           const st = e.target.scrollTop; 
+           if (st > this.state.lastScrollTop){
+              // downscroll code
+              console.log("downscroll code");
+           } else {
+               console.log("upscroll code");
+              // upscroll code
+           }
+           this.state.lastScrollTop = st <= 0 ? 0 : st; 
 
-			this.getData();
+
+
+		// console.log("first",e.target.scrollHeight,e.target.scrollTop);
+		const bottom = e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight < 50;
+		if(bottom){
+			const pg = this.state.pageNo + 1;
+            this.setState({pageNo:pg})
+            // console.log("this.state.pageNo",this.state.pageNo);
+           
+this.getData();
+		
 		}
 	}
 
