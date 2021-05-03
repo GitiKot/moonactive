@@ -130,7 +130,7 @@ exports.DuplicatePromotion = (req, res) => {
 
 // DELETE a Promotion
 exports.deletePromotion = (req, res) => {
-    let promotionId = req.params.id
+    const promotionId = req.params.id
 
     Promotion.findByIdAndRemove(promotionId).select('-__v -_id')
         .then(promotion => {

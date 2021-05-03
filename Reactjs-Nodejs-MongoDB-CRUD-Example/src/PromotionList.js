@@ -10,13 +10,11 @@ class PromotionList extends Component {
         super(props);
         this.state = { fields: [], promotions: [], isLoading: true ,lastScrollTop:0, pageNo:1};
         this.remove = this.remove.bind(this);
-
         
     }
     
     componentDidMount() {
 
-       
         this.setState({ isLoading: true });
 
        fetch(`api/promotions/${0}`).then(response => {
@@ -47,23 +45,39 @@ class PromotionList extends Component {
     }
    
      getData(){
-     
+     const pageNoumber=this.state.pageNo;
        console.log(`getdata()api/promotions/${this.state.pageNo}`);
        fetch(`api/promotions/${this.state.pageNo}`).then(response => {
         response.json()
-        .then(data => {
-            // if(this.state.pageNo<2)
-            this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
-            // else{
-            //     const PrevData=this.state.promotions.splice(0,20,data)
-            //     console.log("1111",this.state.promotions );
-            //     console.log(data);
-            //     console.log("aaa",PrevData);
+        .then(data => { 
+            
+            console.log(" if(this.state.pageNo",this.state.pageNo);
+           console.log("pageNoumber",pageNoumber);
+            // debugger
+            // if(this.state.pageNo<2)//if not 
+            if(pageNoumber<2)//if not 
+            {
+                this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
+               
+            }
+            else{
+   
+   
+                this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
+              
+                // if()//if up
+               console.log("this.state.promotions.splice(0,20)",this.state.promotions.splice(0,20));
+               console.log("this.state.promotions",this.state.promotions);
+                // else{
+                
+                // }
+            //     const PrevData=this.state.promotions.splice(0,20,data)  
             //     this.setState({ promotions: this.state.promotions.splice(0,20,PrevData), isLoading: false})
-            //     console.log("2222",this.state.promotions);
-            //     this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
-            //     console.log("3333",this.state.promotions);
-            // }
+            // this.setState({ promotions: this.state.promotions.splice(this.state.pageNo-2,20), isLoading: false})
+                // this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
+                // this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
+              
+            }
         
         });
 
