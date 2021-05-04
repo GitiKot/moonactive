@@ -8,7 +8,7 @@ class PromotionList extends Component {
     
     constructor(props) {
         super(props);
-        this.state = { fields: [], promotions: [], isLoading: true ,lastScrollTop:0, pageNo:1};
+        this.state = { fields: [], promotions: [], isLoading: true ,lastScrollTop:0, pageNo:1,scroll:"down"};
         this.remove = this.remove.bind(this);
         
     }
@@ -44,73 +44,116 @@ class PromotionList extends Component {
         });
     }
    
-     getData(){
-     const pageNoumber=this.state.pageNo;
-
-       console.log(`getdata()api/promotions/${this.state.pageNo}`);
-       fetch(`api/promotions/${this.state.pageNo}`).then(response => {
-        response.json()
-        .then(data => { 
-            
-          console.log(" if(this.state.pageNo",this.state.pageNo);
-           console.log("pageNoumber",pageNoumber);
-            // 
-            console.log("this.state.pageNo>pageNoumber",this.state.pageNo>pageNoumber);
-           if(this.state.pageNo>pageNoumber){
-            if(pageNoumber<2)//if not first
-            {
+    getData(){
+        const pageNoumber=this.state.pageNo;
+ 
+          console.log(`getdata()api/promotions/${this.state.pageNo}`);
+          fetch(`api/promotions/${this.state.pageNo}`).then(response => {
+           response.json()
+           .then(data => { 
+               console.log("getdata data",data,!(JSON.stringify(data)===JSON.stringify([])));
+              if(!(JSON.stringify(data)===JSON.stringify([]))){
+                    if(this.state.pageNo>pageNoumber){
                 this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
-            }
-            else{
-   
-            this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
-            this.state.promotions.splice(0,20)
-              
-            //     const PrevData=this.state.promotions.splice(0,20,data)  
-            //     this.setState({ promotions: this.state.promotions.splice(0,20,PrevData), isLoading: false})
-            // this.setState({ promotions: this.state.promotions.splice(this.state.pageNo-2,20), isLoading: false})
-                // this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
-                // this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
-
-            } 
-           }
-           else{
-
-           }
+               if(pageNoumber>2)//if not first
+               {
+                      this.state.promotions.splice(0,20)
+               }
+              }
+              else{ } 
           
-        });
-       })
-	}
+              }
+              else{
+                const pg = this.state.pageNo -1;
+                this.setState({pageNo:pg})
+              }
+             });
+          })
+       }
+
+       getDataUpScroll(){
+        //    debugger
+       
+        //    let pageNoumber=this.state.pageNo;
+        //     pageNoumber=pageNoumber-1;
+
+  console.log("getDataUpScroll this.state.pageNo",this.state.pageNo);
+            //    console.log("getDataUpScroll pageNoumber",pageNoumber);
+                // console.log("this.state.pageNo>pageNoumber",this.state.pageNo>pageNoumber);
+                if(this.state.pageNo>=0){
+//    the pageNo need to be smaller---
+console.log(`getdata()api/promotions/${this.state.pageNo}`);
+fetch(`api/promotions/${this.state.pageNo}`).then(response => {
+ response.json()
+ .then(data => { 
    
-	firstEvent = (e) => {
-           const st = e.target.scrollTop; 
-           if (st > this.state.lastScrollTop){
-              // downscroll code
-              console.log("downscroll code");
-           } else {
-               console.log("upscroll code");
-              // upscroll code
+ 
+
+    // if(this.state.pageNo>pageNoumber){
+
+// contac data to front
+console.log("up promotion 111" ,this.state.promotions,"data",data);
+     this.setState({ promotions: data.concat(this.state.promotions), isLoading: false})
+
+     console.log("up promotion 222" ,this.state.promotions,"data",data);
+
+     // if(pageNoumber<1112)//if not last???change the number to?
+     // {
+this.state.promotions.splice(40,0)//? check if(20,0)
+
+     // }
+    // } else{ 
+      
+    //        this.setState({pageNo:0})
+    //  }
+    
+ });
+})
+
+
+//     pg = this.state.pageNo + 2;
+//    this.setState({pageNo:pg})
+
+                }else{
+                    this.setState({pageNo:0})
+                }
+
+       }
+    
+
+   firstEvent = (e) => {
+
+    const st = e.target.scrollTop; 
+    if (st > this.state.lastScrollTop){
+       // downscroll code
+    const bottom = e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight < 50;
+           if(bottom){
+               const pg = this.state.pageNo + 1;
+               this.setState({pageNo:pg})
+               this.getData();
            }
-           this.state.lastScrollTop = st <= 0 ? 0 : st; 
 
-
-
-		// console.log("first",e.target.scrollHeight,e.target.scrollTop);
-		const bottom = e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight < 50;
-		if(bottom){
-			const pg = this.state.pageNo + 1;
-            this.setState({pageNo:pg})
-            // console.log("this.state.pageNo",this.state.pageNo);
-           
-this.getData();
-		
-		}
-	}
+       console.log("downscroll code");
+    } else {
+        // upscroll code
+const scrollBottom=e.target.scrollHeight-(e.target.scrollHeight-e.target.scrollTop)<50;
+    console.log("scrollBottom",scrollBottom);
+    if(scrollBottom){
+        // const pg = this.state.pageNo - 2;
+        // this.setState({pageNo:pg})
+        let pg = this.state.pageNo - 1;
+        this.setState({pageNo:pg})
+        this.getDataUpScroll();
+    }
+        console.log("upscroll code");
+    }
+    this.setState({lastScrollTop: st <= 0 ? 0 : st })
+ }
 
     render() {
+        
         const { fields, promotions, isLoading } = this.state;
       
- 
 
         if (isLoading) {
             return <p > Loading... </p>;
