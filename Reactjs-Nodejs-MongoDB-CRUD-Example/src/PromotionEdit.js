@@ -4,20 +4,11 @@ import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 class PromotionEdit extends Component {
 
-    emptyPromotion = {
-        PromotionName: '',
-        Type: '',
-        StartDate: '',
-        EndDate: '',
-        UserGroupName: '',
-        Actions: ''
-    };
-
     constructor(props) {
         super(props);
         this.state = {
             fields: [],
-            item: this.emptyPromotion
+           item:''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
