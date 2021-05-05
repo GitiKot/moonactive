@@ -45,19 +45,25 @@ class PromotionList extends Component {
     }
    
     getData(){
+        
         const pageNoumber=this.state.pageNo;
- 
-          console.log(`getdata()api/promotions/${this.state.pageNo}`);
+ console.log("this.state.pageNo",this.state.pageNo);
+        //   console.log(`getdata()api/promotions/${this.state.pageNo}`);
           fetch(`api/promotions/${this.state.pageNo}`).then(response => {
            response.json()
            .then(data => { 
-               console.log("getdata data",data,!(JSON.stringify(data)===JSON.stringify([])));
+            //    console.log("getdata data",data,!(JSON.stringify(data)===JSON.stringify([])));
+            //    console.log("this.state.pageNo",this.state.pageNo);
               if(!(JSON.stringify(data)===JSON.stringify([]))){
+                //   console.log("getdata this.state.pageNo>pageNoumber",this.state.pageNo,pageNoumber);
                     if(this.state.pageNo>pageNoumber){
                 this.setState({ promotions: this.state.promotions.concat(data), isLoading: false})
+                // console.log("this.state.pageNo",this.state.pageNo);
                if(pageNoumber>2)//if not first
                {
+                //    console.log("getdata data.length",data.length);
                       this.state.promotions.splice(0,20)
+                    //   console.log("this.state.promotions",this.state.promotions);
                }
               }
               else{ } 
@@ -70,56 +76,66 @@ class PromotionList extends Component {
              });
           })
        }
-
        getDataUpScroll(){
-        //    debugger
-       
-        //    let pageNoumber=this.state.pageNo;
-        //     pageNoumber=pageNoumber-1;
 
-  console.log("getDataUpScroll this.state.pageNo",this.state.pageNo);
-            //    console.log("getDataUpScroll pageNoumber",pageNoumber);
-                // console.log("this.state.pageNo>pageNoumber",this.state.pageNo>pageNoumber);
-                if(this.state.pageNo>=0){
-//    the pageNo need to be smaller---
-console.log(`getdata()api/promotions/${this.state.pageNo}`);
+if(this.state.pageNo<0){
+    this.state({pageNo:0});
+}
+else{
+//    //    let pageNoumber=this.state.pageNo;
+//                 //     pageNoumber=pageNoumber-1;
+//               //  if(this.state.pageNo>=0){
+//                    
+//                     fetch(`api/promotions/${this.state.pageNo}`).then(response => {
+//                      response.json()
+      //  .then(data => { 
+                       
+//                         // if(this.state.pageNo>pageNoumber){
+//                     // contac data to front
+                
+//                          this.setState({ promotions: data.concat(this.state.promotions), isLoading: false})
+//                          // if(pageNoumber<1112)//if not last???change the number to?
+//                          // {
+//                              console.log("llll",data.length);
+//                     this.state.promotions.splice(60,20)//? check if(20,20)
+//                      });
+//                     })
+
+
+
+
+
+
 fetch(`api/promotions/${this.state.pageNo}`).then(response => {
- response.json()
- .then(data => { 
-   
- 
-
-    // if(this.state.pageNo>pageNoumber){
-
-// contac data to front
-console.log("up promotion 111" ,this.state.promotions,"data",data);
-     this.setState({ promotions: data.concat(this.state.promotions), isLoading: false})
-
-     console.log("up promotion 222" ,this.state.promotions,"data",data);
-
-     // if(pageNoumber<1112)//if not last???change the number to?
-     // {
-this.state.promotions.splice(40,0)//? check if(20,0)
-
-     // }
-    // } else{ 
-      
-    //        this.setState({pageNo:0})
-    //  }
-    
- });
-})
+                         response.json()
+                         .then(data => { 
+                           console.log("this.state.promotions",this.state.promotions);
+                            // if(this.state.pageNo>pageNoumber){
+                        // contac data to front
+                        console.log("data",data);
+                    const DataArray=data.concat(this.state.promotions);
+                    console.log("DataArray",DataArray);
+                             this.setState({ promotions:DataArray , isLoading: false})
+                             // if(pageNoumber<1112)//if not last???change the number to?
+                             // {
+                                //  console.log("llll",data.length);
 
 
-//     pg = this.state.pageNo + 2;
-//    this.setState({pageNo:pg})
+// if()//splice just if not the end
+// {}
+// else{}
+                        this.state.promotions.splice(60,20)//? check if(20,20)
 
-                }else{
-                    this.setState({pageNo:0})
-                }
 
-       }
-    
+                         });
+                        })
+
+    const pg = this.state.pageNo + 2;
+        this.setState({pageNo:pg})
+
+}                           
+               }
+  
 
    firstEvent = (e) => {
 
@@ -139,10 +155,10 @@ this.state.promotions.splice(40,0)//? check if(20,0)
 const scrollBottom=e.target.scrollHeight-(e.target.scrollHeight-e.target.scrollTop)<50;
     console.log("scrollBottom",scrollBottom);
     if(scrollBottom){
-        // const pg = this.state.pageNo - 2;
-        // this.setState({pageNo:pg})
-        let pg = this.state.pageNo - 1;
+        const pg = this.state.pageNo - 3;
         this.setState({pageNo:pg})
+        // let pg = this.state.pageNo - 1;
+        // this.setState({pageNo:pg})
         this.getDataUpScroll();
     }
         console.log("upscroll code");
