@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 const Promotion = require('./app/models/promotion.model.js');
 const Fields = require('./app/models/fields.model.js');
 mongoose.Promise = global.Promise;
-
+mongoose.set('useFindAndModify', false);
 // Connecting to the database
 mongoose.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(async() => {

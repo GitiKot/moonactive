@@ -75,19 +75,30 @@ exports.updatePromotion = (req, res) => {
         });
 };
 //Duplicate a Promotion
-exports.DuplicatePromotion = (req, res) => {
+exports.duplicatePromotion = (req, res) => {
+    const promotionId = req.params.id
+    console.log("promotionId", promotionId);
+    Promotion.findById(promotionId)
+        .then(duplicate => {
 
-    const promotion = new Promotion(req.body);
+            const promotion = new Promotion(duplicate);
 
-    // Save a Promotion in the MongoDB
-    promotion.save().then(data => {
-        res.status(200).json(data);
-    }).catch(err => {
-        res.status(500).json({
-            message: "Fail!",
-            error: err.message
+            // Save a Promotion in the MongoDB
+            promotion.save().then(data => {
+                console.log("data", data);
+                res.status(200).json(data);
+            }).catch(err => {
+                res.status(500).json({
+                    message: "Fail!",
+                    error: err.message
+                });
+            });
+            console.log(duplicate);
+
+        })
+        .catch(err => {
+            console.log(err);
         });
-    });
 };
 
 // DELETE a Promotion

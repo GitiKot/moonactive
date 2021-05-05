@@ -60,22 +60,56 @@ class PromotionEdit extends Component {
 
         const promotionList = < div > {
             fields.map(f => f.fieldName.map(name => {
-                return (
-                    <FormGroup >
+    //             console.log("name.type==='Date'",name.type==='Date');
+    //             if(name.type==='Date'){
+    //                 console.log("name.nameField",name.nameField,new Date(item[name.nameField]).toLocaleDateString());
+    //                 if(item[name.nameField])
+    //    return ( 
+    //     <FormGroup >
+    //     <Label
+    //     for = { name.nameField } > { name.nameField } </Label>  
+    //    < Input type = { name.type }
+    //     name = { name.nameField }
+    //     id = { name.nameField }
+    //     value = { new Date(item[name.nameField]).toLocaleDateString() || '' }
+    //     onChange = { this.handleChange }
+    //     autoComplete = { name.nameField }
+    //     />   
+    //    </ FormGroup >       
+    //   )
+    //   else{
+    //     return (
+    //         <FormGroup >
+    //         <Label
+    //         for = { name.nameField } > { name.nameField } </Label>  
+    //        < Input type = { name.type }
+    //         name = { name.nameField }
+    //         id = { name.nameField }
+    //         value = { item[name.nameField] || '' }
+    //         onChange = { this.handleChange }
+    //         autoComplete = { name.nameField }
+    //         />   
+    //        </ FormGroup >
 
-                    <
-                    Label
-                    for = { name.nameField } > { name.nameField } </Label>  
-                   < Input type = { name.type }
-                    name = { name.nameField }
-                    id = { name.nameField }
-                    value = { item[name.nameField] || '' }
-                    onChange = { this.handleChange }
-                    autoComplete = { name.nameField }
-                    />   
-                   </ FormGroup >
+    //     )}
+    //  }  
+    //  else{
+        return (
+            <FormGroup >
+            <Label
+            for = { name.nameField } > { name.nameField } </Label>  
+           < Input type = { name.type }
+            name = { name.nameField }
+            id = { name.nameField }
+            value = { item[name.nameField] || '' }
+            onChange = { this.handleChange }
+            autoComplete = { name.nameField }
+            />   
+           </ FormGroup >
 
-                )
+        )
+    //   }
+              
             }))
         } </div>
 

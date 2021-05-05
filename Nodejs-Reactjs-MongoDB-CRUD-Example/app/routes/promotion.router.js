@@ -8,6 +8,7 @@ module.exports = function(app) {
     app.get('/api/promotions/:skip', promotions.promotions);
     app.put('/api/promotion', promotions.updatePromotion);
     app.delete('/api/promotion/:id', promotions.deletePromotion);
+    app.post('/api/promotion/:id', promotions.duplicatePromotion);
 
     app.get('/api/fields', field.getAllFields);
 }

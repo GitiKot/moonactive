@@ -10,6 +10,7 @@ class PromotionList extends Component {
         super(props);
         this.state = { fields: [], promotions: [], isLoading: true ,lastScrollTop:0, pageNo:1,scroll:"down"};
         this.remove = this.remove.bind(this);
+        this.duplicate = this.duplicate.bind(this);
         
     }
     
@@ -40,6 +41,20 @@ class PromotionList extends Component {
         }).then(() => {
             console.log("Remove Done!");
             let updatedPromotions = [...this.state.promotions].filter(i => i._id !== id);
+            this.setState({ promotions: updatedPromotions });
+        });
+    }
+    async duplicate(id) {
+        await fetch(`/api/promotion/${id}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            console.log("duplicate Done!");
+            let updatedPromotions = [...this.state.promotions].filter(i => i._id !== id||i._id === id);
+            // console.log("updatedPromotions",updatedPromotions);
             this.setState({ promotions: updatedPromotions });
         });
     }
@@ -103,8 +118,7 @@ fetch(`api/promotions/${this.state.pageNo}`).then(response => {
         this.setState({pageNo:pg})
 
 }                           
-               }
-  
+       }
 
    firstEvent = (e) => {
 
@@ -156,9 +170,7 @@ const scrollBottom=e.target.scrollHeight-(e.target.scrollHeight-e.target.scrollT
           else{
             return ( 
                 <td > {promotion[name.nameField]} </td>     
-         
- )
-          }
+         )}
          }  else{
             return       ( 
                 <td > { promotion[name.nameField] } </td>     
@@ -170,15 +182,20 @@ const scrollBottom=e.target.scrollHeight-(e.target.scrollHeight-e.target.scrollT
              <td > 
 
                 <ButtonGroup >
-                
+               
                < Button size = "sm"
             color = "primary"
             tag = { Link }
-            to = { "/promotions/" + promotion._id } > Edit </Button>   <
-            Button size = "sm"
+            to = { "/promotions/" + promotion._id } > Edit </Button> 
+              <Button size = "sm"
+            color = "accent"
+            onClick = {
+                    () => this.duplicate(promotion._id)
+                } > Duplicate </Button>    
+            <Button size = "sm"
             color = "danger"
             onClick = {
-                    () => this.remove(promotions._id)
+                    () => this.remove(promotion._id)
                 } > Delete </Button>   
                 </ButtonGroup > 
                 </td>   
