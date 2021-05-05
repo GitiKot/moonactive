@@ -1,19 +1,9 @@
 const Promotion = require('../models/promotion.model.js');
-const Fields = require('../models/fields.model');
+
 // POST a Promotion
 exports.createPromotion = (req, res) => {
 
-    const promotion = new Promotion({
-
-        PromotionName: req.body.PromotionName,
-        Type: req.body.Type,
-        StartDate: req.body.StartDate,
-        EndDate: req.body.EndDate,
-        UserGroupName: req.body.UserGroupName,
-        Actions: req.body.Actions
-
-
-    });
+    const promotion = new Promotion(req.body);
 
     // Save a Promotion in the MongoDB
     promotion.save().then(data => {
@@ -41,17 +31,6 @@ exports.promotions = (req, res) => {
             error: error
         });
     });
-    // Promotion.find().select('-__v').then(promotionInfos => {
-    //     res.status(200).json(promotionInfos);
-    // }).catch(error => {
-    //     // log on console
-    //     console.log(error);
-
-    //     res.status(500).json({
-    //         message: "Error!",
-    //         error: error
-    //     });
-    // });
 };
 
 // get a Promotion by Id
@@ -77,16 +56,7 @@ exports.getPromotion = (req, res) => {
 exports.updatePromotion = (req, res) => {
     // Find promotion and update it
     Promotion.findByIdAndUpdate(
-            req.body._id, {
-                PromotionName: req.body.PromotionName,
-                Type: req.body.Type,
-                StartDate: req.body.StartDate,
-                EndDate: req.body.EndDate,
-                UserGroupName: req.body.UserGroupName,
-                Actions: req.body.Actions
-
-
-            }, { new: true }
+            req.body._id, req.body, { new: true }
         ).select('-__v')
         .then(promotion => {
             if (!promotion) {
@@ -107,15 +77,7 @@ exports.updatePromotion = (req, res) => {
 //Duplicate a Promotion
 exports.DuplicatePromotion = (req, res) => {
 
-    const promotion = new Promotion({
-        PromotionName: req.body.PromotionName,
-        Type: req.body.Type,
-        StartDate: req.body.StartDate,
-        EndDate: req.body.EndDate,
-        UserGroupName: req.body.UserGroupName,
-        Actions: req.body.Actions
-
-    });
+    const promotion = new Promotion(req.body);
 
     // Save a Promotion in the MongoDB
     promotion.save().then(data => {

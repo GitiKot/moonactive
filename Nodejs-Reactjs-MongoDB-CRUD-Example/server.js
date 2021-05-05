@@ -17,41 +17,35 @@ mongoose.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: true
         console.log("Successfully connected to MongoDB.");
 
 
-        const promotions = [{
-                PromotionName: 'Jack',
-                Type: 'Smith',
-                age: 23,
-                address: '374 William S Canning Blvd'
-            },
-            {
-                PromotionName: 'Adam',
-                Type: 'Johnson',
-                age: 31,
-                address: 'Fall River MA 2721. 121 Worcester Rd'
-            },
-            {
-                PromotionName: 'Dana',
-                Type: 'Bay',
-                age: 46,
-                address: 'Framingham MA 1701. 677 Timpany Blvd'
-            },
-        ]
+        // const promotions = [{
+        //         PromotionName: 'Jack1111111111',
+        //         Type: 'Smith',
+        //         age: 23,
+        //         address: '374 William S Canning Blvd'
+        //     },
+        //     {
+        //         PromotionName: 'Adam',
+        //         Type: 'Johnson',
+        //         age: 31,
+        //         address: 'Fall River MA 2721. 121 Worcester Rd'
+        //     },
+        // ]
 
-        for (let i = 0; i < promotions.length; i++) {
-            // const fieldsList = fields.map(a => a.fieldName.map(f => < th > { f.nameField } < /th>))
-            console.log(promotions[i]);
-            // const fieldsList = fields.map(a => a.fieldName.map(f => { f.nameField }))
-            const promotion = new Promotion({
-                PromotionName: promotions[i].PromotionName,
-                Type: promotions[i].Type,
-                age: promotions[i].age,
-                address: promotions[i].address
-            });
+        // for (let i = 0; i < promotions.length; i++) {
+        //     // const fieldsList = fields.map(a => a.fieldName.map(f => < th > { f.nameField } < /th>))
+        //     console.log(promotions[i]);
+        //     // const fieldsList = fields.map(a => a.fieldName.map(f => { f.nameField }))
+        //     const promotion = new Promotion({
+        //         PromotionName: promotions[i].PromotionName,
+        //         Type: promotions[i].Type,
+        //         age: promotions[i].age,
+        //         address: promotions[i].address
+        //     });
 
-            // Save a Promotion in the MongoDB
-            console.log(promotion);
-            await promotion.save();
-        }
+        //     // Save a Promotion in the MongoDB
+        //     console.log(promotion);
+        //     await promotion.save();
+        // }
     }).catch(err => {
         console.log('Could not connect to MongoDB.');
         process.exit();
