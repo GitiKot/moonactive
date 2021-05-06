@@ -7,26 +7,30 @@ import PromotionEdit from './PromotionEdit';
 
 class App extends Component {
     render() {
-        return ( 
-            <Router >
+        return ( <
+            Router >
 
-            
-            <Switch >
 
-            
-            <Route path = '/'
+            <
+            Switch >
+
+
+            <
+            Route path = '/'
             exact = { true }
             component = { Home }
-            />  
-            <Route path = '/promotions'
+            />   <
+            Route path = '/promotions'
             exact = { true }
             component = { PromotionList }
-            />  
-            <Route path = '/promotions/:id'
+            />   <
+            Route path = '/promotions/:id'
             component = { PromotionEdit }
             /> 
             
-           </ Switch > 
+            <Route path = '/makeData'
+            component = { PromotionEdit }/>      
+             </ Switch >  
             </Router>
         )
     }

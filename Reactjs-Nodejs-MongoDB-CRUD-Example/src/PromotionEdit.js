@@ -116,22 +116,16 @@ class PromotionEdit extends Component {
 
 
         console.log("promotionList", promotionList);
-        return <div >
-
-            
+        return <div >    
             <AppNavbar />
 
-          
               <Container > { title } 
             <Form onSubmit = { this.handleSubmit } >
 
             { promotionList }
 
-       
         < FormGroup >
-
-
-          
+  
              < Button color = "primary"
      type = "submit" > Save </Button>{' '}   
          < Button color = "secondary"
@@ -140,9 +134,7 @@ class PromotionEdit extends Component {
         </FormGroup > 
             </Form>  
          </Container >
-
-
-            
+    
             </div>
     }
 }

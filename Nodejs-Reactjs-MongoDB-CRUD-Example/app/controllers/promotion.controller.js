@@ -78,8 +78,17 @@ exports.updatePromotion = (req, res) => {
 exports.duplicatePromotion = (req, res) => {
     const promotionId = req.params.id
     console.log("promotionId", promotionId);
+
+
     Promotion.findById(promotionId)
         .then(duplicate => {
+
+            console.log("duplicate", duplicate);
+
+            console.log("Object.values(object1)", Object.keys(duplicate)[0]._id);
+            console.log("Object.values(object1)", Object.keys(duplicate)[1]);
+            // const oldObject = { foo: 'bar', baz: 42 };
+            const { _id, ...no_id } = duplicate
 
             const promotion = new Promotion(duplicate);
 
@@ -93,7 +102,6 @@ exports.duplicatePromotion = (req, res) => {
                     error: err.message
                 });
             });
-            console.log(duplicate);
 
         })
         .catch(err => {

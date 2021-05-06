@@ -7,18 +7,23 @@ import { Button, Container } from 'reactstrap';
 class Home extends Component {
     render() {
         return ( 
-            <div>
+            <div >
+
             
-            <AppNavbar/>
+            <AppNavbar />
+
             
             <Container fluid >
-            
-            <Button color = "link" > < Link to = "/promotions" > Manage promotions List </Link></Button>
 
-<Button >< Link to = "/promotions" >10000 rows</ Link></Button>
+            
+            <Button color = "link" > < Link to = "/promotions" > Manage promotions List </Link></Button >
+
+            
+            <Button > < Link to = "/makeData" > 10000 rows </ Link></Button >
+
             
             </Container> 
-            </div>
+             </div>
         );
     }
 }

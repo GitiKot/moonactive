@@ -8,7 +8,7 @@ class PromotionList extends Component {
     
     constructor(props) {
         super(props);
-        this.state = { fields: [], promotions: [], isLoading: true ,lastScrollTop:0, pageNo:1,scroll:"down"};
+        this.state = { fields: [], promotions: [], isLoading: true ,lastScrollTop:0, pageNo:1};
         this.remove = this.remove.bind(this);
         this.duplicate = this.duplicate.bind(this);
         
@@ -63,7 +63,7 @@ class PromotionList extends Component {
         
         const pageNoumber=this.state.pageNo;
  console.log("this.state.pageNo",this.state.pageNo);
-       
+     
           fetch(`api/promotions/${this.state.pageNo}`).then(response => {
            response.json()
            .then(data => { 
