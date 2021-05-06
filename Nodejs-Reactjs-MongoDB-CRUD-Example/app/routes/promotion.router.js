@@ -1,6 +1,4 @@
 const promotions = require('../controllers/promotion.controller.js');
-const field = require('../controllers/fields.controller.js');
-const makeData = require('../controllers/makeData.controller')
 module.exports = function(app) {
 
     app.post('/api/promotion', promotions.createPromotion);
@@ -10,6 +8,4 @@ module.exports = function(app) {
     app.delete('/api/promotion/:id', promotions.deletePromotion);
     app.post('/api/promotion/:id', promotions.duplicatePromotion);
 
-    app.get('/api/fields', field.getAllFields);
-    app.post('api/makeData', makeData.createData)
 }

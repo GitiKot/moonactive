@@ -77,21 +77,27 @@ exports.updatePromotion = (req, res) => {
 //Duplicate a Promotion
 exports.duplicatePromotion = (req, res) => {
     const promotionId = req.params.id
-    console.log("promotionId", promotionId);
-
 
     Promotion.findById(promotionId)
         .then(duplicate => {
-
             console.log("duplicate", duplicate);
 
-            console.log("Object.values(object1)", Object.keys(duplicate)[0]._id);
-            console.log("Object.values(object1)", Object.keys(duplicate)[1]);
-            // const oldObject = { foo: 'bar', baz: 42 };
+            var keys = [];
+            for (var key in duplicate) {
+                console.log("key", key);
+                keys.push(key);
+            }
+
+
             const { _id, ...no_id } = duplicate
+            console.log("no_id", no_id);
 
             const promotion = new Promotion(duplicate);
+            console.log("promotion", promotion);
+            delete promotion._id
+            console.log("promotion", promotion);
 
+            console.log("promotion._id ", promotion._id);
             // Save a Promotion in the MongoDB
             promotion.save().then(data => {
                 console.log("data", data);
@@ -102,7 +108,6 @@ exports.duplicatePromotion = (req, res) => {
                     error: err.message
                 });
             });
-
         })
         .catch(err => {
             console.log(err);

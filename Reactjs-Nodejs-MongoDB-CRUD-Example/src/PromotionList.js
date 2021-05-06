@@ -23,13 +23,34 @@ class PromotionList extends Component {
                     .then(data => this.setState({ promotions: data,isLoading: false }));       
 			})
 			.catch(error => {
-				alert('Axios GET request failed');
+				alert('GET request failed');
 			})
 
             fetch('api/fields')
             .then(response => response.json())
             .then(data => {this.setState({ fields: data, isLoading: false ,pageNo:1})});      
     }
+
+    makeData(){
+
+        fetch('api/makeData')
+        // .then(response => response.json())
+        // .then(data => {this.setState({ fields: data, isLoading: false ,pageNo:1})});   
+
+        // await fetch(`/api/promotion/${id}`, {
+        //     method: 'DELETE',
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json'
+        //     }
+        // })
+        .then(() => {
+            console.log("10000 Row Done!");
+            // let updatedPromotions = [...this.state.promotions];
+            // this.setState({ promotions: updatedPromotions });
+        });
+    }
+
 
     async remove(id) {
         await fetch(`/api/promotion/${id}`, {
@@ -158,7 +179,7 @@ const scrollBottom=e.target.scrollHeight-(e.target.scrollHeight-e.target.scrollT
         const fieldsList=fields.map(a=>a.fieldName.map(f=><th >{f.nameField}</th>))
         const promotionList = promotions.map(promotion => {
             return <tr key = { promotion._id } >
-
+ <td><input type="checkbox"/></td>
                 {fields.map(f=>f.fieldName.map(name=> {
                    
                     if(name.type==='Date'){
@@ -199,6 +220,7 @@ const scrollBottom=e.target.scrollHeight-(e.target.scrollHeight-e.target.scrollT
                 } > Delete </Button>   
                 </ButtonGroup > 
                 </td>   
+               
                </tr >
         });
 
@@ -208,7 +230,8 @@ const scrollBottom=e.target.scrollHeight-(e.target.scrollHeight-e.target.scrollT
             < AppNavbar />
             <Container fluid > 
             <div className = "float-right" >
-                        <Button color = "success"
+            <Button onClick={this.makeData}> 10000 rows</Button >
+  <Button color = "success"
             tag = { Link }
             to = "/promotions/new" > Add Promotion </Button>   
            </ div > 
@@ -218,6 +241,7 @@ const scrollBottom=e.target.scrollHeight-(e.target.scrollHeight-e.target.scrollT
            
              <thead >
              <tr >
+                 <th>select</th>
                  {fieldsList}
            </ tr > 
             </thead>  

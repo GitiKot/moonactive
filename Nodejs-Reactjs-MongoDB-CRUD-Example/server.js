@@ -51,6 +51,7 @@ mongoose.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: true
     });
 
 require('./app/routes/promotion.router.js')(app);
+require('./app/routes/fields.router.js')(app);
 // Create a Server
 const server = app.listen(8080, function() {
     const host = server.address().address
