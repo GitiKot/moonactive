@@ -71,7 +71,7 @@ class PromotionEdit extends Component {
             value = { item[name.nameField] || '' }
             onChange = { this.handleChange }
             autoComplete = { name.nameField }
-            />   
+ />   
            </ FormGroup >
 
         )     
@@ -82,7 +82,7 @@ class PromotionEdit extends Component {
 
         console.log("promotionList", promotionList);
         return <div >    
-            <AppNavbar />
+            {/* <AppNavbar /> */}
 
               <Container > { title } 
             <Form onSubmit = { this.handleSubmit } >

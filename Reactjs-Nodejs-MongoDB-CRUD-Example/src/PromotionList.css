@@ -2,3 +2,17 @@
     overflow-y: auto;
     height: 900px;
 }
+
+.nav {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    background-color: rgb(0, 212, 212);
+    width: 2000px;
+}
+
+.title {
+    display: inline;
+    margin: 6px;
+    margin-right: 1000px;
+}

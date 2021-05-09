@@ -1,5 +1,5 @@
 const Promotion = require('../models/promotion.model.js');
-
+const Field = require('../models/fields.model.js');
 // POST a Promotion
 exports.createPromotion = (req, res) => {
 
@@ -80,34 +80,34 @@ exports.duplicatePromotion = (req, res) => {
 
     Promotion.findById(promotionId)
         .then(duplicate => {
-            console.log("duplicate", duplicate);
-
-
-
             const promotion = new Promotion(duplicate);
             const newPromotion = JSON.parse(JSON.stringify(promotion));
+            const createPromotion = {};
 
+            Field.find().select('-__v').then(fields => {
+                    res.status(200).json(fields);
 
+                    const fieldsList = JSON.parse(JSON.stringify(fields[0]))
 
-            console.log("JSON", newPromotion);
+                    fieldsList.fieldName.map(f => {
+                        createPromotion[f.nameField] = newPromotion[f.nameField];
+                    })
 
+                    const promotion = new Promotion(createPromotion);
+                    promotion.save();
 
-
-
-
-            // Save a Promotion in the MongoDB
-            newPromotion.save().then(data => {
-                console.log("data", data);
-                res.status(200).json(data);
-            }).catch(err => {
-                res.status(500).json({
-                    message: "Fail!",
-                    error: err.message
+                })
+                .catch(err => {
+                    console.log(err);
                 });
+
+        }).catch(error => {
+            // log on console
+            console.log(error);
+            res.status(500).json({
+                message: "Error!",
+                error: error
             });
-        })
-        .catch(err => {
-            console.log(err);
         });
 };
 

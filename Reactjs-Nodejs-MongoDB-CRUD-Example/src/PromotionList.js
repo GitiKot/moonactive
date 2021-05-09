@@ -243,7 +243,8 @@ const scrollBottom=e.target.scrollHeight-(e.target.scrollHeight-e.target.scrollT
         return ( 
             <div  className="div" 
             onScroll={this.firstEvent}>
-            < AppNavbar />
+                
+            {/* < AppNavbar /> */}
             <Container fluid > 
             <div className = "float-right" >
             <Button onClick={this.makeData}> 10000 rows</Button >

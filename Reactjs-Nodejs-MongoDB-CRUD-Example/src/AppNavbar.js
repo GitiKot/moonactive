@@ -16,17 +16,11 @@ export default class AppNavbar extends Component {
     }
 
     render() {
-        return <Navbar color = "dark"
+        return <Navbar color = "blue"
         dark expand = "md" >
-
-
-
-
-
-          
+     
               <NavbarToggler onClick = { this.toggle }
         /> 
-
        
          <Collapse isOpen = { this.state.isOpen }
         navbar >
