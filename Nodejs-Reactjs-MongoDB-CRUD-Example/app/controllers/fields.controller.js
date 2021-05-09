@@ -1,6 +1,6 @@
 const Field = require('../models/fields.model.js');
 
-exports.getAllFields = (req, res) => {
+exports.get = (req, res) => {
     Field.find().select('-__v').then(fieldInfos => {
         res.status(200).json(fieldInfos);
     }).catch(error => {

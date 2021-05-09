@@ -1,7 +1,7 @@
 const Promotion = require('../models/promotion.model.js');
 const Field = require('../models/fields.model.js');
 
-exports.createPromotion = (req, res) => {
+exports.create = (req, res) => {
 
     const promotion = new Promotion(req.body);
 
@@ -16,7 +16,7 @@ exports.createPromotion = (req, res) => {
 };
 
 
-exports.promotions = (req, res) => {
+exports.get = (req, res) => {
     Promotion.find().skip(req.params.skip * 20).limit(20).then(promotionInfos => {
 
         res.status(200).json(promotionInfos);
@@ -31,26 +31,26 @@ exports.promotions = (req, res) => {
 };
 
 
-exports.getPromotion = (req, res) => {
+exports.getById = (req, res) => {
     Promotion.findById(req.params.id).select('-__v')
         .then(promotion => {
             res.status(200).json(promotion);
         }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
-                    message: "Promotion not found with id " + req.params.id,
+                    message: `Promotion not found with id ${req.params.id}`,
                     error: err
                 });
             }
             return res.status(500).send({
-                message: "Error retrieving Promotion with id " + req.params.id,
+                message: `Error retrieving Promotion with id ${req.params.id}`,
                 error: err
             });
         });
 };
 
 
-exports.updatePromotion = (req, res) => {
+exports.update = (req, res) => {
 
     Promotion.findByIdAndUpdate(
             req.body._id, req.body, { new: true }
@@ -58,7 +58,7 @@ exports.updatePromotion = (req, res) => {
         .then(promotion => {
             if (!promotion) {
                 return res.status(404).send({
-                    message: "Error -> Can NOT update a promotion with id = " + req.params.id,
+                    message: `Error -> Can NOT update a promotion with id =${req.params.id} `,
                     error: "Not Found!"
                 });
             }
@@ -66,13 +66,15 @@ exports.updatePromotion = (req, res) => {
             res.status(200).json(promotion);
         }).catch(err => {
             return res.status(500).send({
-                message: "Error -> Can not update a promotion with id = " + req.params.id,
+                message: `
+                                    Error - > Can not update a promotion with id = $ { req.params.id }
+                                    `,
                 error: err.message
             });
         });
 };
 
-exports.duplicatePromotion = (req, res) => {
+exports.duplicate = (req, res) => {
     const promotionId = req.params.id
 
     Promotion.findById(promotionId)
@@ -107,21 +109,25 @@ exports.duplicatePromotion = (req, res) => {
         });
 };
 
-exports.deletePromotion = (req, res) => {
+exports.delete = (req, res) => {
     const promotionId = req.params.id
 
     Promotion.findByIdAndRemove(promotionId).select('-__v -_id')
         .then(promotion => {
             if (!promotion) {
                 res.status(404).json({
-                    message: "Does Not exist a Promotion with id = " + promotionId,
+                    message: `
+                                    Does Not exist a Promotion with id = $ { promotionId }
+                                    `,
                     error: "404",
                 });
             }
             res.status(200).json({});
         }).catch(err => {
             return res.status(500).send({
-                message: "Error -> Can NOT delete a promotion with id = " + promotionId,
+                message: `
+                                    Error - > Can NOT delete a promotion with id = $ { promotionId }
+                                    `,
                 error: err.message
             });
         });

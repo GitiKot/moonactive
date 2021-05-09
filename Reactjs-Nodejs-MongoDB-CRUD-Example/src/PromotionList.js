@@ -63,7 +63,7 @@ class PromotionList extends Component {
       },
     }).then(() => {
       console.log("Remove Done!");
-      let updatedPromotions = [...this.state.promotions].filter(
+      const updatedPromotions = [...this.state.promotions].filter(
         (i) => i._id !== id
       );
       this.setState({ promotions: updatedPromotions });
@@ -78,7 +78,7 @@ class PromotionList extends Component {
       },
     }).then(() => {
       console.log("duplicate Done!");
-      let updatedPromotions = [...this.state.promotions].filter(
+      const updatedPromotions = [...this.state.promotions].filter(
         (i) => i._id !== id || i._id === id
       );
       this.setState({ promotions: updatedPromotions });
@@ -116,7 +116,7 @@ class PromotionList extends Component {
       this.state.pageNo = 0;
       console.log("pg 00", this.state.pageNo);
     } else {
-      //    //    let pageNoumber=this.state.pageNo;
+      //    //    const pageNoumber=this.state.pageNo;
       //                 //     pageNoumber=pageNoumber-1;
 
       fetch(`api/promotions/${this.state.pageNo}`).then((response) => {
