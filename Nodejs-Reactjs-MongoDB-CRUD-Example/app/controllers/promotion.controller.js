@@ -18,7 +18,6 @@ exports.createPromotion = (req, res) => {
 
 // FETCH all Promotions
 exports.promotions = (req, res) => {
-    console.log("req", req.params.skip, req.params.skip * 20);
     Promotion.find().skip(req.params.skip * 20).limit(20).then(promotionInfos => {
 
         res.status(200).json(promotionInfos);
