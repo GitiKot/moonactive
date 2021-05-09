@@ -32,8 +32,28 @@ class PromotionList extends Component {
     }
 
     makeData(){
+console.log("makeData");
 
-        fetch('api/makeData')
+
+
+
+             fetch('api/makeData', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(() => {
+                console.log("makeData Done!");
+                // let updatedPromotions = [...this.state.promotions]
+                // console.log("updatedPromotions",updatedPromotions);
+                // this.setState({ promotions: updatedPromotions });
+            });
+
+
+
+
+      
         // .then(response => response.json())
         // .then(data => {this.setState({ fields: data, isLoading: false ,pageNo:1})});   
 
@@ -44,11 +64,7 @@ class PromotionList extends Component {
         //         'Content-Type': 'application/json'
         //     }
         // })
-        .then(() => {
-            console.log("10000 Row Done!");
-            // let updatedPromotions = [...this.state.promotions];
-            // this.setState({ promotions: updatedPromotions });
-        });
+       
     }
 
 

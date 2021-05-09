@@ -82,24 +82,21 @@ exports.duplicatePromotion = (req, res) => {
         .then(duplicate => {
             console.log("duplicate", duplicate);
 
-            var keys = [];
-            for (var key in duplicate) {
-                console.log("key", key);
-                keys.push(key);
-            }
 
-
-            const { _id, ...no_id } = duplicate
-            console.log("no_id", no_id);
 
             const promotion = new Promotion(duplicate);
-            console.log("promotion", promotion);
-            delete promotion._id
-            console.log("promotion", promotion);
+            const newPromotion = JSON.parse(JSON.stringify(promotion));
 
-            console.log("promotion._id ", promotion._id);
+
+
+            console.log("JSON", newPromotion);
+
+
+
+
+
             // Save a Promotion in the MongoDB
-            promotion.save().then(data => {
+            newPromotion.save().then(data => {
                 console.log("data", data);
                 res.status(200).json(data);
             }).catch(err => {
