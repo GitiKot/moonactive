@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
-import AppNavbar from "./AppNavbar";
+
 class PromotionEdit extends Component {
   constructor(props) {
     super(props);
@@ -19,10 +19,6 @@ class PromotionEdit extends Component {
       .then((data) => {
         this.setState({ fields: data });
       });
-
-    // fetch('../api/promotions')
-    // .then(response => response.json())
-    // .then(data => this.setState({ promotions: data }));
 
     if (this.props.match.params.id !== "new") {
       const promotion = await (
@@ -58,8 +54,7 @@ class PromotionEdit extends Component {
 
   render() {
     const { fields, item } = this.state;
-
-    const title = <h2> {item.id ? "Edit Promotion" : "Add Promotion"} </h2>;
+    const title = <h2> {item._id ? "Edit Promotion" : "Add Promotion"} </h2>;
 
     const promotionList = (
       <div>
@@ -83,11 +78,8 @@ class PromotionEdit extends Component {
       </div>
     );
 
-    console.log("promotionList", promotionList);
     return (
       <div>
-        {/* <AppNavbar /> */}
-
         <Container>
           {title}
           <Form onSubmit={this.handleSubmit}>

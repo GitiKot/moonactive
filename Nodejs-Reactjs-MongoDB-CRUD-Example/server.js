@@ -9,11 +9,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.set('useFindAndModify', false);
 mongoose.connect(dbConfig.url, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(async() => {
-        console.log("Successfully connected to MongoDB.");
-
-    }).catch(err => {
-        console.log('Could not connect to MongoDB.');
+    .then(async() => {}).catch(err => {
         process.exit();
     });
 
@@ -24,5 +20,4 @@ const server = app.listen(8080, function() {
     const host = server.address().address
     const port = server.address().port
 
-    console.log("App listening at http://%s:%s", host, port)
 })

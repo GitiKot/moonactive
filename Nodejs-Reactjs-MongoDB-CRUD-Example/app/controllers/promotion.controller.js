@@ -21,7 +21,6 @@ exports.get = (req, res) => {
 
         res.status(200).json(promotionInfos);
     }).catch(error => {
-        console.log(error);
 
         res.status(500).json({
             message: "Error!",
@@ -96,12 +95,9 @@ exports.duplicate = (req, res) => {
                     promotion.save();
 
                 })
-                .catch(err => {
-                    console.log(err);
-                });
+                .catch(err => {});
 
         }).catch(error => {
-            console.log(error);
             res.status(500).json({
                 message: "Error!",
                 error: error

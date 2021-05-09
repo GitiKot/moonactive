@@ -40,7 +40,6 @@ class PromotionList extends Component {
   }
 
   makeData() {
-    console.log("makeData");
 
     fetch("api/makeData", {
       method: "POST",
@@ -49,7 +48,6 @@ class PromotionList extends Component {
         "Content-Type": "application/json",
       },
     }).then(() => {
-      console.log("makeData Done!");
     
     });
   }
@@ -62,7 +60,6 @@ class PromotionList extends Component {
         "Content-Type": "application/json",
       },
     }).then(() => {
-      console.log("Remove Done!");
       const updatedPromotions = [...this.state.promotions].filter(
         (i) => i._id !== id
       );
@@ -77,31 +74,27 @@ class PromotionList extends Component {
         "Content-Type": "application/json",
       },
     }).then(() => {
-      console.log("duplicate Done!");
-      const updatedPromotions = [...this.state.promotions].filter(
-        (i) => i._id !== id || i._id === id
-      );
+      const updatedPromotions = [...this.state.promotions]
+     
       this.setState({ promotions: updatedPromotions });
     });
   }
 
   getDataDownScroll() {
-    const pageNoumber = this.state.pageNo;
-    console.log("this.state.pageNo", this.state.pageNo);
+    const pageNumber = this.state.pageNo;
 
     fetch(`api/promotions/${this.state.pageNo}`).then((response) => {
       response.json().then((data) => {
         if (!(JSON.stringify(data) === JSON.stringify([]))) {
-          if (this.state.pageNo > pageNoumber) {
+          if (this.state.pageNo > pageNumber) {
             this.setState({
               promotions: this.state.promotions.concat(data),
               isLoading: false,
             });
-            if (pageNoumber > 2) {
+            if (pageNumber > 2) {
               this.state.promotions.splice(0, 20);
             }
-          } else {
-          }
+          } 
         } else {
           const pg = this.state.pageNo - 1;
           this.setState({ pageNo: pg });
@@ -114,24 +107,14 @@ class PromotionList extends Component {
     if (pg < 0) {
       this.setState({ pageNo: 0 });
       this.state.pageNo = 0;
-      console.log("pg 00", this.state.pageNo);
-    } else {
-      //    //    const pageNoumber=this.state.pageNo;
-      //                 //     pageNoumber=pageNoumber-1;
+    } 
+    else {
 
       fetch(`api/promotions/${this.state.pageNo}`).then((response) => {
         response.json().then((data) => {
-          console.log("this.state.promotions", this.state.promotions);
-          // if(this.state.pageNo>pageNoumber){
-          // contac data to front
-          console.log("data", data);
           const DataArray = data.concat(this.state.promotions);
-          console.log("DataArray", DataArray);
           this.setState({ promotions: DataArray, isLoading: false });
 
-          // if()//splice just if not the end
-          // {}
-          // else{}
           this.state.promotions.splice(60, 20);
         });
       });
@@ -144,7 +127,6 @@ class PromotionList extends Component {
   firstEvent = (e) => {
     const st = e.target.scrollTop;
     if (st > this.state.lastScrollTop) {
-      // downscroll code
       const bottom =
         e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight < 50;
       if (bottom) {
@@ -152,23 +134,16 @@ class PromotionList extends Component {
         this.setState({ pageNo: pg });
         this.getDataDownScroll();
       }
-
-      console.log("downscroll code");
     } else {
-      // upscroll code
+     
       const scrollBottom =
-        e.target.scrollHeight - (e.target.scrollHeight - e.target.scrollTop) <
-        50;
-      console.log("scrollBottom", scrollBottom);
+        e.target.scrollHeight - (e.target.scrollHeight - e.target.scrollTop) < 50;
       if (scrollBottom) {
-        console.log("b-b-b-b", this.state.pageNo);
         const pg = this.state.pageNo - 4;
-        console.log("pg", pg);
         this.setState({ pageNo: pg });
-        console.log("-3-3-3-3-3-3-3-3-3", (this.state.pageNo = pg));
+        this.state.pageNo=pg;
         this.getDataUpScroll();
       }
-      console.log("upscroll code");
     }
     this.setState({ lastScrollTop: st <= 0 ? 0 : st });
   };
@@ -238,13 +213,13 @@ class PromotionList extends Component {
     return (
       <div className="div" onScroll={this.firstEvent}>
         <Container fluid>
-          <div className="float-right">
+          <div className="float-right" className="nav">
             <Button onClick={this.makeData}> 10000 rows</Button>
             <Button color="success" tag={Link} to="/promotions/new">
               Add Promotion
             </Button>
           </div>
-          <h3> Promotion List </h3>
+          <h3 className="title"> Promotion List </h3>
           <Table className="mt-4">
             <thead>
               <tr>

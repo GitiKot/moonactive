@@ -8,7 +8,6 @@ exports.createData = (req, res) => {
 
         const fieldsList = JSON.parse(JSON.stringify(fields[0]))
 
-
         for (let i = 0; i < 10; i++) {
             let newPromotion = {};
             fieldsList.fieldName.map(f => {
@@ -32,13 +31,11 @@ exports.createData = (req, res) => {
                 }
             })
 
-
             const promotion = new Promotion(newPromotion);
             promotion.save();
         }
 
     }).catch(error => {
-        console.log(error);
 
         res.status(500).json({
             message: "Error!",

@@ -10,8 +10,8 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path="/" exact={true} component={PromotionList} />{" "}
-          <Route path="/promotions" exact={true} component={PromotionList} />{" "}
+          <Route path="/" exact={true} component={PromotionList} />
+          <Route path="/promotions" exact={true} component={PromotionList} />
           <Route path="/promotions/:id" component={PromotionEdit} />
         </Switch>
       </Router>
@@ -20,3 +20,4 @@ class App extends Component {
 }
 
 export default App;
+
