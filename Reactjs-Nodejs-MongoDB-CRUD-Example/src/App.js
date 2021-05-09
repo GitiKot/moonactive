@@ -13,7 +13,6 @@ class App extends Component {
           <Route path="/" exact={true} component={PromotionList} />{" "}
           <Route path="/promotions" exact={true} component={PromotionList} />{" "}
           <Route path="/promotions/:id" component={PromotionEdit} />
-          <Route path="/makeData" component={PromotionEdit} />
         </Switch>
       </Router>
     );

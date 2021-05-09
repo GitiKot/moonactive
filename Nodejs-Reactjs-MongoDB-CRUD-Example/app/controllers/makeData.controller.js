@@ -34,12 +34,10 @@ exports.createData = (req, res) => {
 
 
             const promotion = new Promotion(newPromotion);
-            //               Save a Promotion in the MongoDB 
             promotion.save();
         }
 
     }).catch(error => {
-        // log on console
         console.log(error);
 
         res.status(500).json({

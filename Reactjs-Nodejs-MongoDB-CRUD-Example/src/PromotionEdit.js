@@ -63,7 +63,6 @@ class PromotionEdit extends Component {
 
     const promotionList = (
       <div>
-        {" "}
         {fields.map((f) =>
           f.fieldName.map((name) => {
             return (
@@ -80,7 +79,7 @@ class PromotionEdit extends Component {
               </FormGroup>
             );
           })
-        )}{" "}
+        )}
       </div>
     );
 
@@ -90,19 +89,16 @@ class PromotionEdit extends Component {
         {/* <AppNavbar /> */}
 
         <Container>
-          {" "}
           {title}
           <Form onSubmit={this.handleSubmit}>
             {promotionList}
 
             <FormGroup>
-              <Button color="primary" type="submit">
-                {" "}
-                Save{" "}
-              </Button>{" "}
+              <Button color="primary" type="submit"> 
+                Save
+              </Button>
               <Button color="secondary" tag={Link} to="/promotions">
-                {" "}
-                Cancel{" "}
+                Cancel
               </Button>
             </FormGroup>
           </Form>

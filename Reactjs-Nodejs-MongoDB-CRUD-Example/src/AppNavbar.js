@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Collapse, Nav, Navbar, NavbarToggler } from "reactstrap";
 
 export default class AppNavbar extends Component {
   constructor(props) {
@@ -19,7 +18,6 @@ export default class AppNavbar extends Component {
     return (
       <Navbar color="blue" dark expand="md">
         <NavbarToggler onClick={this.toggle} />
-
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar></Nav>
         </Collapse>

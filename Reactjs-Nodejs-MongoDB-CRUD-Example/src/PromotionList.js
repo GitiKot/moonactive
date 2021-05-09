@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Button, ButtonGroup, Container, Table } from "reactstrap";
-import AppNavbar from "./AppNavbar";
 import { Link } from "react-router-dom";
 import "./PromotionList.css";
 
@@ -51,9 +50,7 @@ class PromotionList extends Component {
       },
     }).then(() => {
       console.log("makeData Done!");
-      // let updatedPromotions = [...this.state.promotions]
-      // console.log("updatedPromotions",updatedPromotions);
-      // this.setState({ promotions: updatedPromotions });
+    
     });
   }
 
@@ -84,7 +81,6 @@ class PromotionList extends Component {
       let updatedPromotions = [...this.state.promotions].filter(
         (i) => i._id !== id || i._id === id
       );
-      // console.log("updatedPromotions",updatedPromotions);
       this.setState({ promotions: updatedPromotions });
     });
   }
@@ -102,7 +98,6 @@ class PromotionList extends Component {
               isLoading: false,
             });
             if (pageNoumber > 2) {
-              //if not first
               this.state.promotions.splice(0, 20);
             }
           } else {
@@ -199,10 +194,7 @@ class PromotionList extends Component {
                 if (promotion[name.nameField])
                   return (
                     <td>
-                      {" "}
-                      {new Date(
-                        promotion[name.nameField]
-                      ).toLocaleDateString()}{" "}
+                      {new Date(promotion[name.nameField]).toLocaleDateString()}
                     </td>
                   );
                 else {
@@ -221,24 +213,21 @@ class PromotionList extends Component {
                 tag={Link}
                 to={"/promotions/" + promotion._id}
               >
-                {" "}
-                Edit{" "}
+                Edit
               </Button>
               <Button
                 size="sm"
                 color="accent"
                 onClick={() => this.duplicate(promotion._id)}
               >
-                {" "}
-                Duplicate{" "}
+                Duplicate
               </Button>
               <Button
                 size="sm"
                 color="danger"
                 onClick={() => this.remove(promotion._id)}
               >
-                {" "}
-                Delete{" "}
+                Delete
               </Button>
             </ButtonGroup>
           </td>
@@ -248,16 +237,13 @@ class PromotionList extends Component {
 
     return (
       <div className="div" onScroll={this.firstEvent}>
-        {/* < AppNavbar /> */}
         <Container fluid>
           <div className="float-right">
             <Button onClick={this.makeData}> 10000 rows</Button>
             <Button color="success" tag={Link} to="/promotions/new">
-              {" "}
-              Add Promotion{" "}
+              Add Promotion
             </Button>
           </div>
-
           <h3> Promotion List </h3>
           <Table className="mt-4">
             <thead>
