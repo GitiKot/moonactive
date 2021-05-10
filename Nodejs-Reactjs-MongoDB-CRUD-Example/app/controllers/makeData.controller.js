@@ -8,7 +8,7 @@ exports.createData = (req, res) => {
 
         const fieldsList = JSON.parse(JSON.stringify(fields[0]))
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 10000; i++) {
             let newPromotion = {};
             fieldsList.fieldName.map(f => {
 
